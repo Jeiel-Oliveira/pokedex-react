@@ -12,10 +12,11 @@ function App() {
     <div className="App container d-flex justify-content-center h-100">
 
       <Row extraClass="align-self-center">
-        <Card text='James Bond' src={require('./img/pikachu.jpg')} />      
-      </Row>      
+        <Card text='James Bond' src={require('./img/pikachu.jpg')} />              
+      </Row>            
 
     </div>
+
   );
 }
 
