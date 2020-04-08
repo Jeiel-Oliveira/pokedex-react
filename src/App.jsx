@@ -9,12 +9,12 @@ import './css/style.css'
 
 function App() {
   return (
-    <div className="App container d-flex justify-content-center h-100">
-
-      <Row extraClass="align-self-center">
+    <div className="App container p-5">
+      <div className="article">
+        
         <Card text='James Bond' src={require('./img/pikachu.jpg')} />              
-      </Row>            
-
+                
+      </div>      
     </div>
 
   );
