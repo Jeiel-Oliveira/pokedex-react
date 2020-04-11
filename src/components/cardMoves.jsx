@@ -1,19 +1,23 @@
 import React from 'react'
 
 export default props => (
-    <div className="card mx-auto">
-        <div className="text-center">      
-            <h3>Moves</h3>
+
+    <div className="mx-auto">
+
+        <div className="text-center">                  
             <ul className="list-group">
+                <li className="list-group-item list-group-item-dark"><strong>moves</strong></li>
                 {props.moves}
             </ul>
         </div>                             
 
-        <div className="text-center">
-            <h3>Status</h3>
+        <div className="text-center my-5">            
             <ul className="list-group">
+                <li className="list-group-item list-group-item-dark"><strong>Status</strong></li>
                 {props.status}
             </ul>
         </div>
+
     </div>    
+
 )

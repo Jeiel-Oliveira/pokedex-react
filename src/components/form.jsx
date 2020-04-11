@@ -10,19 +10,23 @@ export default class Form extends Component {
     render() {
 
         return (
-            <form className="form-inline mx-auto p-3" onSubmit={ this.props.onSubmit }>
-                
-                <div className="form-group">                    
-                    <Input 
-                        className="mx-auto"
-                        type='text' 
-                        placeholder='Pokemon..' 
-                        value={this.props.value} 
-                        onChange={this.props.onChange} />                    
+            <form className="form mx-auto" onSubmit={ this.props.onSubmit }>
+                <div className="row">
+                    <div className="col">
+                        <div className="form-group">                    
+                            <Input 
+                                className="mx-auto form-control"
+                                type='text' 
+                                placeholder='Pokemon..' 
+                                value={this.props.value} 
+                                onChange={this.props.onChange} />                    
+                        </div>                
+                    </div>                    
+
+                    <div className="col">
+                        <Button type='submit' color='primary' text='Pesquisar' className="form-control" />
+                    </div>
                 </div>                
-
-                <Button type='submit' color='danger' text='Pesquisar' />
-
             </form>
         )
     }

@@ -1,44 +1,32 @@
 import React, { Component } from 'react'
 
-import Form from './form'
-
-import Row from '../commom/layout/row'
-import Col from '../commom/layout/grid'
+import '../css/style.css'
 
 export default class CardName extends Component {
     
     render(){
         return(
 
-            <div className="card mx-auto">
-                <Form onSubmit={this.props.onSubmit} onChange={this.props.onChange} value={this.props.value} />                
+            <div>                                                                
+            
+                <div className="card pokemon-name-card">
 
-                <Row>
-                    <Col cols="6">
-                        <div className="text-center">
-                            <img src={this.props.src} />                    
-                        </div>
-
+                    <div className="text-center">
+                        <img className="w-50" src={this.props.srcNormal} alt="Card image cap" />
+                        <img className="w-50" src={this.props.srcShiny} alt="Card image cap" />                        
+                    </div>
+                                
+                    <div className="card-body">                            
                         <div className="text-center">                                                        
                             {this.props.type}                            
-                        </div>                                                
-                    </Col>
-
-                    <Col cols="6">                    
-                        <div className="text-center">                            
-                            <div className="d-flex">                                            
-                                <h3>Nome: </h3>                            
-                                <p className="m-auto">{this.props.name}</p>                                                    
-                            </div>                                        
-
-                            <div className="d-flex">                                
-                                <h3>peso:</h3>                    
-                                <p className="m-auto">{this.props.weight}</p>                    
-                            </div>
-                        </div>
-                    </Col>
-
-                </Row>
+                        </div>                                                                            
+                    </div>                    
+                                    
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item"><strong>Nome: </strong>{this.props.name}</li>
+                        <li className="list-group-item"><strong>Peso: </strong>{this.props.weight}</li>                            
+                    </ul>                        
+                </div>                
             </div>
 
         )
