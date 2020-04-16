@@ -36,3 +36,11 @@ html {
 .list-group-flush .list-group-item:first-child {
     border-top-width: 1px !important;
 }
+
+.autoContainer {
+    margin-top: 5px;
+    position: "absolute" !important; 
+    z-index: 15;    
+    max-height: 300px;
+    overflow-y: auto;
+}

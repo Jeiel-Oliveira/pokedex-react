@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Card from './components/card';
-// import Header from './commom/template/header'
 
 import './css/style.css'
 

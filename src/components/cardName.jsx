@@ -16,7 +16,7 @@ export default class CardName extends Component {
                         <img className="w-50" src={this.props.srcShiny} alt="Card image cap" />                        
                     </div>
                                 
-                    <div className="card-body">                            
+                    <div className="card-body" id="card-body">                            
                         <div className="text-center">                                                        
                             {this.props.type}                            
                         </div>                                                                            
