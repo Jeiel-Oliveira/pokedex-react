@@ -12,19 +12,22 @@ export default class Form extends Component {
             
             <form ref={this.myRef} className="form mx-auto" onSubmit={ this.props.onSubmit }>
                 <div className="row">
-                    <div className="col">
+                    <div className="col-md-6 col-12">
                         <div className="form-group">                    
-                            <input 
+                            <input                                                                                                                                
+                                id="input_search" 
                                 className="mx-auto form-control"
                                 type='text' 
                                 placeholder='Pokemon..' 
                                 value={this.props.value} 
                                 onChange={this.props.onChange}
-                                onClick={this.props.onClick} />                                                             
+                                onKeyPress={this.props.onKeyPress} />                                                             
                         </div>                
-                    </div>                    
+                    </div>  
 
-                    <div className="col">
+                    {this.props.searchBar}                  
+
+                    <div className="col-md-6 col-12">
                         <Button type='submit' color='primary' text='Pesquisar' className="form-control" />
                     </div>
                 </div>                

@@ -24,7 +24,8 @@ export default class CardName extends Component {
                                     
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item"><strong>Nome: </strong>{this.props.name}</li>
-                        <li className="list-group-item"><strong>Peso: </strong>{this.props.weight}</li>                            
+                        <li className="list-group-item"><strong>Peso: </strong>{this.props.weight}</li>
+                        <li className="list-group-item"><strong>Experiência base: </strong>{this.props.exp}</li>                            
                     </ul>                        
                 </div>                
             </div>

@@ -8,11 +8,23 @@ import CardMoves from './cardMoves'
 import Form from './form'
 import pokemonColor from '../main/pokemonColor'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTachometerAlt, faShieldAlt, faShieldVirus, faBurn, faHeartbeat, faHandRock } from '@fortawesome/free-solid-svg-icons'
+
 import '../css/style.css'
 
 const api = axios.create({
     baseURL: 'https://pokeapi.co/api/v2/pokemon'
 })
+
+const icons = ([
+    "faTachometerAlt",
+    "faShieldVirus",    
+    "faBurn",    
+    "faShieldAlt",
+    "faHandRock",
+    "faHeartbeat"
+])
 
 let pokemonTypes = []
 
@@ -35,14 +47,18 @@ export default class Card extends Component {
             setOptions: [],
             search: '',
             setSearch: '',            
-            pokemonBaseColor: ''
-        }        
+            pokemonBaseColor: '',
+            exp: '',            
+
+            input_width: '',
+            autocomplete_width: ''            
+        }                   
 
         this.handleChange = this.handleChange.bind(this);
         this.callPokemon = this.callPokemon.bind(this);
         this.setBaseColor = this.setBaseColor.bind(this);
         
-        this.myRef = React.createRef();
+        this.myRef = React.createRef();                
     }               
     
     componentWillMount () {
@@ -67,13 +83,30 @@ export default class Card extends Component {
             setOptions: pokemon
         })
         
-        document.addEventListener("mousedown", this.handClickOutside)
+        document.addEventListener("mousedown", this.handClickOutside)                        
+    }
+
+    componentDidUpdate () {        
+        window.addEventListener("resize", this.setDisplayWidth)                
+    }
+
+    setDisplay = () => {
+        this.setState({ setDisplay: true })                
+        this.setDisplayWidth()
+    }
+
+    setDisplayWidth = () => {
+        let input_search = document.getElementById('input_search');
+
+        this.setState({
+            autocomplete_width: input_search.offsetWidth
+        })
     }
 
     handClickOutside = event => {        
         
         if (this.myRef && !this.myRef.current.contains(event.target)) {
-            this.setState({ setDisplay: false })
+            this.setState({ setDisplay: false })            
         }
 
     }
@@ -104,10 +137,11 @@ export default class Card extends Component {
             pokemonImagem: data.sprites.front_default,
             pokemonImagemShiny: data.sprites.front_shiny,
             pokemonName: data.name,
-            pokemonWeight: data.weight,
+            pokemonWeight: Math.round((data.weight / 2.205)).toFixed(2),
             pokemonMoves: data.moves.slice(0, 4),
             pokemonStatus: data.stats,
-            AllOptions: data
+            AllOptions: data,
+            exp: data.base_experience
         })        
 
         this.setBaseColor(this.state.pokemonType[0])
@@ -247,31 +281,35 @@ export default class Card extends Component {
         this.setState({ pokemonBaseColor: color })                    
     }    
 
-    render() {        
-
+    render() {    
+        
+            
+        
         return (            
             <div ref={this.myRef}>
-                <Form                     
+                <Form                                        
                     onSubmit={this.handleSubmit}
                     value={this.state.setSearch}
                     onChange={event => this.setState({ setSearch: event.target.value })}
-                    onClick={() => this.setState({ setDisplay: !this.state.setDisplay })}                    
-                     /> 
-
-                {this.state.setDisplay && (
-                    <ul className="autoContainer list-group" style={{ position: "absolute" }}>
-                        {this.state.setOptions.filter(({ name }) => name.indexOf(this.state.setSearch.toLowerCase()) > -1).map((v, i) => {
-                            return <li 
-                                        onClick={() => this.setPokedex(v.name)} 
-                                        className="option list-group-item" 
-                                        key={i}
-                                        tabIndex="0"
-                                        >                                                    
-                                {v.name}
-                            </li>
-                        })}
-                    </ul>
-                )}  
+                    onKeyPress={this.setDisplay}                                         
+                    
+                    searchBar={
+                        this.state.setDisplay && (
+                            <div className="auto-container" id="auto-complete" style={{ position: "absolute", width: this.state.autocomplete_width }}>
+                                {this.state.setOptions.filter(({ name }) => name.indexOf(this.state.setSearch.toLowerCase()) > -1).map((v, i) => {
+                                    return <div 
+                                                onClick={() => this.setPokedex(v.name)} 
+                                                className="option" 
+                                                key={i}
+                                                tabIndex={0}                                                                                                
+                                                >                                                    
+                                        {v.name}
+                                    </div>
+                                })}
+                            </div>
+                        )  
+                    }
+                     />                 
                     
                 <Row>
                     <Col cols={'6'}>                    
@@ -287,12 +325,13 @@ export default class Card extends Component {
                                     </span>
                                 ))                            
                             }
-                            weight={this.state.pokemonWeight}
+                            weight={`${this.state.pokemonWeight} kg`}
+                            exp={`${this.state.exp} xp`}
                         />
                     </Col>
 
-                    <Col cols={'6'}>
-                        <CardMoves
+                    <Col cols={'6'}>                        
+                        <CardMoves                            
                             moves={
                                 this.state.pokemonMoves.map((item, index) => (
                                     <li className="list-group-item" key={index}>{item.move.name}</li>
@@ -300,7 +339,7 @@ export default class Card extends Component {
                             }
                             status={
                                 this.state.pokemonStatus.map((item, index) => (
-                                    <li className="list-group-item" key={index}>{item.stat.name}: {item.base_stat}</li>
+                                    <li className="list-group-item" key={index}><FontAwesomeIcon icon={faTachometerAlt} />{item.stat.name}: {item.base_stat}</li>
                                 ))
                             }
                         />

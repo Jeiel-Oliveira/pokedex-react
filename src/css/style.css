@@ -37,10 +37,30 @@ html {
     border-top-width: 1px !important;
 }
 
-.autoContainer {
-    margin-top: 5px;
-    position: "absolute" !important; 
-    z-index: 15;    
-    max-height: 300px;
-    overflow-y: auto;
+.auto-container {        
+    z-index: 15;
+    max-height: 250px;
+    overflow-y: auto;    
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+    margin-top: 38px;    
+    margin-left: 15px;
+    width: 279px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.option {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.title-style {
+    background-color: var(--base) !important;
+    color: white;
+}
+
+@media only screen and (max-width: 769px) {
+    .moves-mobile {
+        margin-top: 1rem;
+    }
 }
