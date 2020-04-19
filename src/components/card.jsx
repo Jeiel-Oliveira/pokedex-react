@@ -17,14 +17,14 @@ const api = axios.create({
     baseURL: 'https://pokeapi.co/api/v2/pokemon'
 })
 
-const icons = ([
-    "faTachometerAlt",
-    "faShieldVirus",    
-    "faBurn",    
-    "faShieldAlt",
-    "faHandRock",
-    "faHeartbeat"
-])
+let iconsStatus = [
+    faTachometerAlt,
+    faShieldVirus,    
+    faBurn,    
+    faShieldAlt,
+    faHandRock,
+    faHeartbeat
+]
 
 let pokemonTypes = []
 
@@ -40,15 +40,14 @@ export default class Card extends Component {
             pokemonWeight: '',
             pokemonMoves: [],
             pokemonStatus: [],
-            AllOptions: [],
-            display: false,
-            setDisplay: false,
-            options: [],
+            AllOptions: [],            
+            setDisplay: false,            
             setOptions: [],
             search: '',
             setSearch: '',            
             pokemonBaseColor: '',
-            exp: '',            
+            exp: '',
+            statusDisplay: false,                        
 
             input_width: '',
             autocomplete_width: ''            
@@ -281,9 +280,7 @@ export default class Card extends Component {
         this.setState({ pokemonBaseColor: color })                    
     }    
 
-    render() {    
-        
-            
+    render() {                    
         
         return (            
             <div ref={this.myRef}>
@@ -331,15 +328,27 @@ export default class Card extends Component {
                     </Col>
 
                     <Col cols={'6'}>                        
-                        <CardMoves                            
+                        <CardMoves 
+                            onClick={() => this.setState({ statusDisplay: true })}
+                        
                             moves={
                                 this.state.pokemonMoves.map((item, index) => (
                                     <li className="list-group-item" key={index}>{item.move.name}</li>
                                 ))
                             }
                             status={
-                                this.state.pokemonStatus.map((item, index) => (
-                                    <li className="list-group-item" key={index}><FontAwesomeIcon icon={faTachometerAlt} />{item.stat.name}: {item.base_stat}</li>
+                                this.state.pokemonStatus.map((item, index) => (                                                                        
+                                    <li className="list-group-item" key={index}>
+                                        <div className="row text-center">
+                                            <div className="offset-2 col-2">
+                                                <FontAwesomeIcon icon={iconsStatus[index]} />
+                                            </div>
+                                            
+                                            <div className="col-6 text-right">
+                                                {item.stat.name}: {item.base_stat}
+                                            </div>
+                                        </div>
+                                    </li>                                    
                                 ))
                             }
                         />
